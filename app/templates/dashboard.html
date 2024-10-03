@@ -2,7 +2,20 @@
 
 {% block content %}
 <h2>Welcome, {{ user.firstname }} {{ user.lastname }}!</h2>
-<p>Your group: {{ user.group }}</p>
+<p>Your group: {{ user.group }} 
+    <button id="editGroupBtn" class="btn btn-sm btn-primary">Edit</button>
+</p>
+
+<form id="editGroupForm" style="display: none;" method="POST" action="{{ url_for('auth.edit_group') }}">
+    {{ form.csrf_token }}
+    <select name="group" id="groupSelect">
+        <option value="North Austin" {% if user.group == 'North Austin' %}selected{% endif %}>North Austin</option>
+        <option value="South Austin" {% if user.group == 'South Austin' %}selected{% endif %}>South Austin</option>
+        <option value="Others" {% if user.group == 'Others' %}selected{% endif %}>Others</option>
+    </select>
+    <button type="submit" class="btn btn-sm btn-success">Save</button>
+    <button type="button" id="cancelEditBtn" class="btn btn-sm btn-secondary">Cancel</button>
+</form>
 
 <h3>Recent Activities</h3>
 <a href="{{ url_for('auth.fetch_activities') }}">Fetch Recent Activities</a>
@@ -20,4 +33,22 @@
 </ul>
 
 <a href="{{ url_for('auth.leaderboard') }}">View Leaderboard</a>
+
+<script>
+    document.getElementById('editGroupBtn').addEventListener('click', function() {
+        document.getElementById('editGroupForm').style.display = 'block';
+        this.style.display = 'none';
+    });
+
+    document.getElementById('cancelEditBtn').addEventListener('click', function() {
+        document.getElementById('editGroupForm').style.display = 'none';
+        document.getElementById('editGroupBtn').style.display = 'inline-block';
+    });
+
+    document.getElementById('editGroupForm').addEventListener('submit', function(e) {
+        if (!confirm('Are you sure you want to change your group?')) {
+            e.preventDefault();
+        }
+    });
+</script>
 {% endblock %}

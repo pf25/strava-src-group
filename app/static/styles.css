@@ -254,3 +254,16 @@ button {
 button:hover {
     background-color: #E34402;
 }
+
+/* Add these styles to your existing CSS */
+#editGroupBtn {
+    margin-left: 10px;
+}
+
+#editGroupForm {
+    margin-top: 10px;
+}
+
+#groupSelect {
+    margin-right: 10px;
+}

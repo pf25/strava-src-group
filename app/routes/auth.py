@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from flask_login import login_user, login_required, current_user, logout_user
 from app.strava_utils import get_strava_activities
 from app.utils.stats import calculate_group_stats, calculate_individual_leaderboard
+from app.forms import EditGroupForm
 
 bp = Blueprint('auth', __name__)
 
@@ -92,8 +93,9 @@ def select_group():
 @bp.route('/dashboard')
 @login_required
 def dashboard():
-    recent_activities = Activity.query.filter_by(user_id=current_user.id).order_by(Activity.start_date.desc()).limit(5).all()
-    return render_template('dashboard.html', user=current_user, activities=recent_activities)
+    form = EditGroupForm()
+    activities = Activity.query.filter_by(user_id=current_user.id).order_by(Activity.start_date.desc()).limit(5).all()
+    return render_template('dashboard.html', user=current_user, activities=activities, form=form)
 
 @bp.route('/fetch_activities')
 @login_required
@@ -145,4 +147,20 @@ def logout():
     session.clear()  # Clear any session data
     flash('You have been disconnected from Strava.', 'info')
     return redirect(url_for('auth.index'))
+
+@bp.route('/edit_group', methods=['POST'])
+@login_required
+def edit_group():
+    form = EditGroupForm()
+    if form.validate_on_submit():
+        new_group = form.group.data
+        if new_group in ['North Austin', 'South Austin', 'Others']:
+            current_user.group = new_group
+            db.session.commit()
+            flash('Your group has been updated successfully!', 'success')
+        else:
+            flash('Invalid group selection.', 'error')
+    else:
+        flash('Error updating group. Please try again.', 'error')
+    return redirect(url_for('auth.dashboard'))
 
