@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Welcome, {{ user.firstname }} {{ user.lastname }}!</h2>
+<p>Your group: {{ user.group }}</p>
+
+<h3>Recent Activities</h3>
+<a href="{{ url_for('auth.fetch_activities') }}">Fetch Recent Activities</a>
+<ul>
+    {% for activity in activities %}
+    <li>
+        {{ activity.name }} - 
+        Date: {{ activity.start_date.strftime('%Y-%m-%d') }}, 
+        Distance: {{ "%.2f"|format(activity.distance / 1000) }} km, 
+        Time: {{ "%d:%02d:%02d"|format(activity.moving_time // 3600, (activity.moving_time % 3600) // 60, activity.moving_time % 60) }}
+    </li>
+    {% else %}
+    <li>No recent activities found.</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('auth.leaderboard') }}">View Leaderboard</a>
+{% endblock %}

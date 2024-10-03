@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Leaderboard</h2>
+
+<form method="get">
+    <label for="timeframe">Timeframe:</label>
+    <select name="timeframe" id="timeframe">
+        <option value="week" {% if timeframe == 'week' %}selected{% endif %}>Week</option>
+        <option value="month" {% if timeframe == 'month' %}selected{% endif %}>Month</option>
+    </select>
+
+    <label for="sort_by">Sort by:</label>
+    <select name="sort_by" id="sort_by">
+        <option value="distance" {% if sort_by == 'distance' %}selected{% endif %}>Distance</option>
+        <option value="elevation" {% if sort_by == 'elevation' %}selected{% endif %}>Elevation Gain</option>
+        <option value="activities" {% if sort_by == 'activities' %}selected{% endif %}>Number of Activities</option>
+    </select>
+
+    <button type="submit">Update</button>
+</form>
+
+<h3>Group Comparison</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Group</th>
+            <th>Number of Users</th>
+            <th>Avg Distance (km)</th>
+            <th>Avg Elevation Gain (m)</th>
+            <th>Avg Number of Activities</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stat in group_stats %}
+        <tr>
+            <td>{{ stat.group }}</td>
+            <td>{{ stat.user_count }}</td>
+            <td>{{ stat.avg_distance }}</td>
+            <td>{{ stat.avg_elevation_gain }}</td>
+            <td>{{ stat.avg_activity_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Individual Leaderboards</h3>
+<div style="display: flex; justify-content: space-between;">
+    {% for group, leaders in individual_leaderboard.items() %}
+    <div style="width: 30%;">
+        <h4>{{ group }}</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>{{ sort_by.capitalize() }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for runner in leaders[:5] %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ runner.name }}</td>
+                    <td>
+                        {% if sort_by == 'distance' %}
+                            {{ runner.total_distance }} km
+                        {% elif sort_by == 'elevation' %}
+                            {{ runner.total_elevation_gain }} m
+                        {% else %}
+                            {{ runner.activity_count }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{{ url_for('auth.dashboard') }}">Back to Dashboard</a>
+{% endblock %}

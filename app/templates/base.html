@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRC Regional Leaderboards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            {% if current_user.is_authenticated %}
+                <div class="nav-left">
+                    <div class="logo">SRC</div>
+                </div>
+                <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation" aria-expanded="false">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </button>
+                <div class="nav-links" id="nav-links">
+                    <a href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('auth.leaderboard') }}">Leaderboard</a>
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                </div>
+            {% else %}
+                <div class="nav-title">SRC Regional Leaderboards</div>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- JavaScript for Burger Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const burger = document.getElementById('burger-menu');
+            const navLinks = document.getElementById('nav-links');
+
+            if (burger) {
+                burger.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    burger.classList.toggle('active');
+
+                    // Update ARIA attribute
+                    const expanded = burger.classList.contains('active');
+                    burger.setAttribute('aria-expanded', expanded);
+
+                    // Toggle body scroll
+                    if (expanded) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

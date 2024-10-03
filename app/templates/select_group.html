@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Select Your Group</h2>
+<form method="POST">
+    {{ form.csrf_token }}
+    <div>
+        <input type="radio" id="north_austin" name="group" value="North Austin" required>
+        <label for="north_austin">North Austin</label>
+    </div>
+    <div>
+        <input type="radio" id="south_austin" name="group" value="South Austin" required>
+        <label for="south_austin">South Austin</label>
+    </div>
+    <div>
+        <input type="radio" id="others" name="group" value="Others" required>
+        <label for="others">Others</label>
+    </div>
+    <button type="submit">Save Selection</button>
+</form>
+{% endblock %}
