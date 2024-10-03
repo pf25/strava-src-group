@@ -283,8 +283,6 @@ button:hover {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    overflow-x: auto;
-    display: block;
     table-layout: fixed; /* Ensures consistent column width */
 }
 
@@ -301,11 +299,22 @@ button:hover {
     color: white;
 }
 
+/* Force table to take full width */
+.responsive-table, .responsive-table tr, .responsive-table td {
+    width: 100% !important;
+    display: table;
+    table-layout: fixed;
+}
+
+.responsive-table td {
+    display: table-cell;
+}
+
 .leaderboard-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between; /* Distribute columns evenly */
+    justify-content: space-between;
 }
 
 .leaderboard-column {
