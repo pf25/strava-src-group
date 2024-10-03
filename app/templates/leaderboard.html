@@ -3,25 +3,32 @@
 {% block content %}
 <h2>Leaderboard</h2>
 
-<form method="get">
-    <label for="timeframe">Timeframe:</label>
-    <select name="timeframe" id="timeframe">
-        <option value="week" {% if timeframe == 'week' %}selected{% endif %}>Week</option>
-        <option value="month" {% if timeframe == 'month' %}selected{% endif %}>Month</option>
-    </select>
-
-    <label for="sort_by">Sort by:</label>
-    <select name="sort_by" id="sort_by">
-        <option value="distance" {% if sort_by == 'distance' %}selected{% endif %}>Distance</option>
-        <option value="elevation" {% if sort_by == 'elevation' %}selected{% endif %}>Elevation Gain</option>
-        <option value="activities" {% if sort_by == 'activities' %}selected{% endif %}>Number of Activities</option>
-    </select>
-
-    <button type="submit">Update</button>
-</form>
+<div class="options-dropdown">
+    <button id="optionsToggle" class="btn btn-primary">Options</button>
+    <div id="optionsContent" class="options-content" style="display: none;">
+        <form method="get">
+            <div class="form-group">
+                <label for="timeframe">Timeframe:</label>
+                <select name="timeframe" id="timeframe" class="form-control">
+                    <option value="week" {% if timeframe == 'week' %}selected{% endif %}>Week</option>
+                    <option value="month" {% if timeframe == 'month' %}selected{% endif %}>Month</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sort_by">Sort by:</label>
+                <select name="sort_by" id="sort_by" class="form-control">
+                    <option value="distance" {% if sort_by == 'distance' %}selected{% endif %}>Distance</option>
+                    <option value="elevation" {% if sort_by == 'elevation' %}selected{% endif %}>Elevation Gain</option>
+                    <option value="activities" {% if sort_by == 'activities' %}selected{% endif %}>Number of Activities</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
 
 <h3>Group Comparison</h3>
-<table>
+<table class="responsive-table">
     <thead>
         <tr>
             <th>Group</th>
@@ -45,11 +52,11 @@
 </table>
 
 <h3>Individual Leaderboards</h3>
-<div style="display: flex; justify-content: space-between;">
+<div class="leaderboard-grid">
     {% for group, leaders in individual_leaderboard.items() %}
-    <div style="width: 30%;">
+    <div class="leaderboard-column">
         <h4>{{ group }}</h4>
-        <table>
+        <table class="responsive-table">
             <thead>
                 <tr>
                     <th>Rank</th>
@@ -80,4 +87,11 @@
 </div>
 
 <a href="{{ url_for('auth.dashboard') }}">Back to Dashboard</a>
+
+<script>
+    document.getElementById('optionsToggle').addEventListener('click', function() {
+        var optionsContent = document.getElementById('optionsContent');
+        optionsContent.style.display = optionsContent.style.display === 'none' ? 'block' : 'none';
+    });
+</script>
 {% endblock %}

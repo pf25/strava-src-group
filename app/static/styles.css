@@ -267,3 +267,50 @@ button:hover {
 #groupSelect {
     margin-right: 10px;
 }
+
+.options-dropdown {
+    margin-bottom: 20px;
+}
+
+.options-content {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    display: block;
+}
+
+.responsive-table th, .responsive-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.responsive-table th {
+    background-color: #FC4C02;
+    color: white;
+}
+
+.leaderboard-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.leaderboard-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .leaderboard-grid {
+        flex-direction: column;
+    }
+}
