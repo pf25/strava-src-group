@@ -285,12 +285,15 @@ button:hover {
     margin-bottom: 20px;
     overflow-x: auto;
     display: block;
+    table-layout: fixed; /* Ensures consistent column width */
 }
 
 .responsive-table th, .responsive-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    width: 33.33%; /* Ensure each column takes up equal width */
+    word-wrap: break-word; /* Ensures text wraps within the cell */
 }
 
 .responsive-table th {
@@ -302,11 +305,13 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: space-between; /* Distribute columns evenly */
 }
 
 .leaderboard-column {
-    flex: 1;
+    flex: 1 1 30%; /* Allow columns to grow and shrink, with a base width of 30% */
     min-width: 300px;
+    box-sizing: border-box; /* Include padding and border in element's total width */
 }
 
 @media (max-width: 768px) {

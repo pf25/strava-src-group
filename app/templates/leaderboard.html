@@ -65,21 +65,27 @@
                 </tr>
             </thead>
             <tbody>
-                {% for runner in leaders[:5] %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>{{ runner.name }}</td>
-                    <td>
-                        {% if sort_by == 'distance' %}
-                            {{ runner.total_distance }} km
-                        {% elif sort_by == 'elevation' %}
-                            {{ runner.total_elevation_gain }} m
-                        {% else %}
-                            {{ runner.activity_count }}
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
+                {% if leaders %}
+                    {% for runner in leaders[:5] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ runner.name }}</td>
+                        <td>
+                            {% if sort_by == 'distance' %}
+                                {{ runner.total_distance }} km
+                            {% elif sort_by == 'elevation' %}
+                                {{ runner.total_elevation_gain }} m
+                            {% else %}
+                                {{ runner.activity_count }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">No data available</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
