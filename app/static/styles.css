@@ -163,10 +163,6 @@ main {
     padding-top: 3rem; /* Move content upward */
 }
 
-.strava-connect {
-    /* Additional styling if needed */
-}
-
 .connect-text {
     font-size: 2.5rem; /* Increased font size */
     margin-bottom: 3rem; /* Increased space between text and button */
