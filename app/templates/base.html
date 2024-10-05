@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SRC Regional Leaderboards</title>
+    <title>SRC Regional Leaderboards - Powered by Strava</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -58,5 +58,8 @@
             }
         });
     </script>
+    <div class="strava-powered">
+        <img src="{{ url_for('static', filename='images/api_logo_pwrdBy_strava_horiz_light.png') }}" alt="Powered by Strava">
+    </div>
 </body>
 </html>

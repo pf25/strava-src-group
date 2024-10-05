@@ -26,6 +26,7 @@
         Date: {{ activity.start_date.strftime('%Y-%m-%d') }}, 
         Distance: {{ "%.2f"|format(activity.distance / 1000) }} km, 
         Time: {{ "%d:%02d:%02d"|format(activity.moving_time // 3600, (activity.moving_time % 3600) // 60, activity.moving_time % 60) }}
+        <a href="https://www.strava.com/activities/{{ activity.strava_id }}" target="_blank" style="color: #FC4C02; font-weight: bold;">View on Strava</a>
     </li>
     {% else %}
     <li>No recent activities found.</li>

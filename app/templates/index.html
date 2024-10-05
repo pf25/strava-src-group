@@ -4,7 +4,9 @@
 <div class="center-content">
     <div class="strava-connect">
         <p class="connect-text">Connect to see leaderboards and compare your run stats</p>
-        <a href="{{ url_for('auth.strava_auth') }}" class="strava-button">Connect with Strava</a>
+        <a href="{{ url_for('auth.strava_auth') }}">
+            <img src="{{ url_for('static', filename='images/btn_strava_connectwith_orange.png') }}" alt="Connect with Strava" class="strava-connect-button">
+        </a>
     </div>
 </div>
 {% endblock %}

@@ -328,3 +328,24 @@ button:hover {
         flex-direction: column;
     }
 }
+
+.strava-powered {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.strava-powered img {
+    height: 40px;  /* Adjust as needed */
+}
+
+.strava-connect-button {
+    width: 80%; /* Takes up 80% of its container's width */
+    max-width: 300px; /* But never gets larger than 300px */
+    height: auto;
+}
+
+.strava-connect-button:hover {
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
